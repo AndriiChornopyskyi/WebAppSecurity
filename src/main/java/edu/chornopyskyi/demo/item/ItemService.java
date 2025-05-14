@@ -21,9 +21,11 @@ public class ItemService {
 
     @PostConstruct
     void init() {
-        items.add(new Item("1", "name1", "description"));
-        items.add(new Item("2", "name2", "description2"));
-        items.add(new Item("3", "name3", "description3"));
+        items = List.of(
+                new Item("1", "name1", "description"),
+                new Item("2", "name2", "description2"),
+                new Item("3", "name3", "description3")
+        );
         repository.saveAll(items);
     }
 
@@ -43,8 +45,31 @@ public class ItemService {
         return repository.save(item);
     }
 
-
     public Item update(Item item) {
         return repository.save(item);
+    }
+    // Часткове оновлення опису
+    public Item updateDescription(String id, String description) {
+        return repository.findById(id)
+                .map(item -> {
+                    item.setDescription(description);
+                    return repository.save(item);
+                })
+                .orElse(null);
+    }
+
+    // Підрахунок кількості елементів
+    public long count() {
+        return repository.count();
+    }
+
+    // Видалити всі
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    // Чи існує за ID
+    public boolean existsById(String id) {
+        return repository.existsById(id);
     }
 }

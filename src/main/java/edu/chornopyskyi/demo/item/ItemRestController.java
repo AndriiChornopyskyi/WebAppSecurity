@@ -37,8 +37,47 @@ public class ItemRestController {
         return service.create(item);
     }
 
-    @PostMapping
+    @PutMapping
     public Item update(@RequestBody Item item) {
         return service.update(item);
+    }
+
+    @GetMapping("/hello/user")
+    public String helloUser() {
+        return "Hello User!";
+    }
+
+    @GetMapping("hello/admin")
+    public String helloAdmin() {
+        return "Hello Admin!";
+    }
+
+    @GetMapping("hello/unknown")
+    public String helloUnknown() {
+        return "Hello Unknown!";
+    }
+
+    // Partially update description by ID
+    @PatchMapping("/{id}/description")
+    public Item updateDescription(@PathVariable String id, @RequestBody String description) {
+        return service.updateDescription(id, description);
+    }
+
+    // Count all items
+    @GetMapping("/count")
+    public long countItems() {
+        return service.count();
+    }
+
+    // Delete all items
+    @DeleteMapping
+    public void deleteAll() {
+        service.deleteAll();
+    }
+
+    // Check if item exists by ID
+    @GetMapping("/{id}/exists")
+    public boolean exists(@PathVariable String id) {
+        return service.existsById(id);
     }
 }
