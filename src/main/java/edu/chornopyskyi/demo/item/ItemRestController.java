@@ -80,9 +80,3 @@ public class ItemRestController {
         return service.existsById(id);
     }
 }
-
-
-
-
-
-}
