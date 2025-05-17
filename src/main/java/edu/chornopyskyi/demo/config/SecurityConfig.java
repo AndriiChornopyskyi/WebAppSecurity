@@ -35,6 +35,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests( req ->
                         req.requestMatchers("/index.html").permitAll()
                                 .requestMatchers("/api/v1/items/hello/admin").hasRole("ADMIN")
+                                .requestMatchers("/api/v1/items/hello/user").hasRole("USER")
+                                .requestMatchers("/api/v1/items/hello/superadmin").hasRole("SUPERADMIN")
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
